@@ -53,7 +53,7 @@ RE.sections = (function () {
         '<li class="ed ph" data-item="bullet" data-dnd="item">用「动作 + 方法 + 量化结果」描述核心贡献，例如「主导 XX 模块，使 YY 指标提升 30%」<span class="editor-only del-btn" data-del title="删除">×</span></li>' +
       '</ul>' +
       '<button class="editor-only add-btn" data-act="bullet">+ 要点</button>' +
-      '<span class="editor-only del-btn section-del" data-del-section title="删除整个项目">×</span>';
+      '<span class="editor-only del-btn section-del" data-del title="删除项目">×</span>';
     section.insertBefore(proj, btn);
   }
 
