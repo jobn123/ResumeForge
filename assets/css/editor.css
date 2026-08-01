@@ -1,0 +1,122 @@
+/* ============================================================
+   editor.css —— 编辑器外壳：工具栏 / 侧栏面板 / 拖拽 / 编辑态控件
+   （仅编辑器使用，导出时不会引用）
+   ============================================================ */
+body {
+  background: #eef0f3;
+  font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+  margin: 0;
+}
+body.edit-mode { background: #e9ebef; }
+
+/* ===== 工具栏 ===== */
+.toolbar {
+  position: sticky; top: 0; z-index: 100;
+  background: #1a1a2e; color: #fff;
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 16px; box-shadow: 0 2px 10px rgba(0,0,0,.2);
+  font-size: 13px; flex-wrap: wrap;
+}
+.toolbar .title { font-weight: 700; margin-right: 6px; letter-spacing: 1px; white-space: nowrap; }
+.toolbar .divider { width: 1px; height: 22px; background: #3a3f5c; margin: 0 2px; }
+.toolbar button {
+  background: #353b5c; color: #fff; border: none; border-radius: 5px;
+  padding: 6px 12px; cursor: pointer; font-size: 13px; transition: background .15s; white-space: nowrap;
+}
+.toolbar button:hover { background: #5352ed; }
+.toolbar button.primary { background: #00b894; }
+.toolbar button.primary:hover { background: #00e676; }
+#btnAddSection { background: #5352ed; }
+#btnAddSection:hover { background: #6c6bff; }
+.toolbar .sel { display: inline-flex; align-items: center; gap: 5px; color: #c8d6e5; font-size: 13px; }
+.toolbar .sel select { background: #353b5c; color: #fff; border: 1px solid #4a4f73; border-radius: 5px; padding: 4px 8px; font-size: 13px; cursor: pointer; }
+.toolbar .sel select:hover { border-color: #5352ed; }
+.toolbar .hint { margin-left: auto; color: #9aa0c0; font-size: 12px; white-space: nowrap; }
+
+/* ===== 舞台 ===== */
+.stage { padding: 24px 16px 60px; }
+
+/* ===== 编辑态：可编辑元素高亮 ===== */
+body.edit-mode .ed { outline: 1px dashed #c4c4d4; border-radius: 3px; padding: 1px 2px; transition: background .1s; }
+body.edit-mode .ed:hover { outline-color: #8a8ad0; background: #f7f7ff; }
+body.edit-mode .ed:focus { outline: 2px solid #5352ed; background: #fffdf5; }
+/* 新增条目时的占位提示文案：灰斜体，输入后由 JS 移除 .ph */
+.ed.ph { color: #9aa1ad; font-style: italic; }
+
+/* ===== 编辑态才显示增删控件 ===== */
+.editor-only { display: none; }
+body.edit-mode .editor-only { display: inline-flex; }
+body.edit-mode .add-btn { display: inline-block; }
+
+/* ===== 模块控件（眼睛 / 删除 / 拖拽手柄） ===== */
+.section-ctrls { display: none; gap: 4px; }
+body.edit-mode .section-ctrls { display: inline-flex; }
+.section-ctrls > span {
+  cursor: pointer; width: 20px; height: 20px; line-height: 18px; text-align: center;
+  border-radius: 5px; font-size: 13px; border: 1px solid transparent; user-select: none;
+}
+.dnd-handle { color: #8a8ad0; border-color: #4a4f73 !important; cursor: grab !important; }
+.dnd-handle:active { cursor: grabbing !important; }
+.eye-btn { color: #4a90d9; }
+.eye-btn:hover { background: #eaf2fb; }
+.del-btn {
+  cursor: pointer; color: #e74c3c; border: 1px solid #e74c3c !important; background: #fff;
+  border-radius: 50%; width: 18px; height: 18px; line-height: 15px; text-align: center;
+  font-size: 13px; align-items: center; justify-content: center; margin-left: 6px; vertical-align: middle;
+}
+.del-btn:hover { background: #e74c3c; color: #fff; }
+.section-del { position: absolute; right: 0; top: 0; }
+[data-item]:hover > .del-btn, .project-points li:hover > .del-btn, .skill-item:hover > .del-btn { display: inline-flex; }
+
+.add-btn {
+  cursor: pointer; color: var(--accent, #00897b);
+  border: 1px dashed var(--accent, #00897b);
+  background: #f7f7fb;
+  background: color-mix(in srgb, var(--accent, #00897b) 8%, #fff);
+  border-radius: 6px; padding: 5px 12px; font-size: 12px; margin: 8px 0 2px;
+  transition: background .15s, color .15s, border-color .15s;
+}
+.add-btn:hover { background: var(--accent, #00897b); color: #fff; border-color: var(--accent, #00897b); }
+/* 模块级新增按钮：块级、整宽、居中，更像「操作区」 */
+body.edit-mode .add-btn.section-add,
+body.edit-mode .add-btn.block-add {
+  display: block; width: 100%; box-sizing: border-box; text-align: center; margin: 10px 0 0;
+}
+.summary-text:empty:before { content: attr(data-ph); color: #b3b9c4; }
+.section-fresh { animation: secFresh 1.6s ease; }
+@keyframes secFresh {
+  from { box-shadow: 0 0 0 3px rgba(83,82,237,.28); border-radius: 8px; }
+  to   { box-shadow: 0 0 0 3px rgba(83,82,237,0); }
+}
+
+/* ===== 拖拽视觉 ===== */
+.dragging { opacity: .4; }
+.drop-indicator { position: relative; }
+.drop-indicator::before {
+  content: ""; position: absolute; left: 0; right: 0; height: 3px;
+  background: #5352ed; border-radius: 2px; box-shadow: 0 0 6px rgba(83,82,237,.6); z-index: 50;
+}
+
+/* ===== 侧栏面板 ===== */
+.side-panel {
+  position: fixed; top: 56px; right: 0; bottom: 0; width: 320px; z-index: 200;
+  background: #fff; box-shadow: -4px 0 20px rgba(0,0,0,.15);
+  display: flex; flex-direction: column; animation: slideIn .18s ease;
+}
+.side-panel[hidden] { display: none; }
+@keyframes slideIn { from { transform: translateX(40px); opacity: 0; } to { transform: none; opacity: 1; } }
+.side-head { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; border-bottom: 1px solid #eee; font-weight: 700; font-size: 15px; }
+.side-head .x { cursor: pointer; border: none; background: #f0f2f5; border-radius: 6px; width: 26px; height: 26px; font-size: 16px; color: #666; }
+.side-head .x:hover { background: #e0e3e8; }
+.side-body { padding: 16px; overflow-y: auto; font-size: 13.5px; color: #333; }
+.side-body .row { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; font-weight: 600; color: #1a1a2e; }
+.side-body .row select, .side-body .row input[type="range"] { font-weight: 400; }
+.side-body select, .side-body input[type="color"] { padding: 6px 8px; border: 1px solid #d0d5dd; border-radius: 6px; font-size: 13px; }
+.side-body input[type="range"] { width: 100%; }
+.side-body .tip { color: #888; font-size: 12px; line-height: 1.6; background: #f6f7f9; padding: 10px; border-radius: 8px; }
+
+/* 窄屏适配 */
+@media (max-width: 720px) {
+  .side-panel { width: 100%; }
+  .toolbar .hint { display: none; }
+}

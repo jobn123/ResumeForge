@@ -1,0 +1,155 @@
+/* ============================================================
+   base.css - 简历版式、主题、模板、打印样式
+   （与编辑器工具栏解耦，导出时仅引用本文件）
+   ============================================================ */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body.resume-view {
+  background: #f0f2f5;
+  font-family: -apple-system, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+  color: #1a1a2e;
+  line-height: 1.7;
+  font-size: 14px;
+}
+
+.page {
+  max-width: 800px;
+  margin: 30px auto;
+  background: #fff;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+  --hdr-bg: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  --hdr-sub: #c8d6e5;
+  --link: #74b9ff;
+  --accent: #5352ed;
+  --accent-soft: #f4f5fc;
+  --accent2: #00897b;
+  --accent2-soft: #e8f5f3;
+  --tag-bg: rgba(116,185,255,0.15);
+  --tag-bd: rgba(116,185,255,0.3);
+  --tag-fg: #74b9ff;
+  --ink: #1a1a2e;
+  --muted: #444;
+  --fs: 14px;
+  --lh: 1.7;
+  font-size: var(--fs);
+  line-height: var(--lh);
+}
+
+/* ===== 主题：海洋蓝 ===== */
+.page[data-theme="ocean"] {
+  --hdr-bg: linear-gradient(135deg, #0b3d91 0%, #1565c0 100%);
+  --hdr-sub: #cfe8ff; --link: #2b8cff; --accent: #1565c0; --accent-soft: #e8f1ff;
+  --accent2: #00b894; --accent2-soft: #e0f7f1;
+  --tag-bg: rgba(41,128,255,0.15); --tag-bd: rgba(41,128,255,0.3); --tag-fg: #2b8cff;
+}
+/* ===== 主题：暖阳橙 ===== */
+.page[data-theme="sunset"] {
+  --hdr-bg: linear-gradient(135deg, #2c1810 0%, #7a3b2e 100%);
+  --hdr-sub: #f3d9c9; --link: #ff7675; --accent: #e17055; --accent-soft: #fdeee9;
+  --accent2: #f39c12; --accent2-soft: #fdf3e0;
+  --tag-bg: rgba(225,112,85,0.15); --tag-bd: rgba(225,112,85,0.3); --tag-fg: #e17055;
+}
+/* ===== 主题：森林绿 ===== */
+.page[data-theme="forest"] {
+  --hdr-bg: linear-gradient(135deg, #0f2e1d 0%, #1b5e20 100%);
+  --hdr-sub: #c8e6d4; --link: #2ecc71; --accent: #27ae60; --accent-soft: #e8f7ee;
+  --accent2: #f39c12; --accent2-soft: #fdf3e0;
+  --tag-bg: rgba(46,204,113,0.15); --tag-bd: rgba(46,204,113,0.3); --tag-fg: #2ecc71;
+}
+/* ===== 主题：石板灰（商务） ===== */
+.page[data-theme="slate"] {
+  --hdr-bg: linear-gradient(135deg, #1f2933 0%, #323f4b 100%);
+  --hdr-sub: #cbd2d9; --link: #4a90d9; --accent: #2c3e50; --accent-soft: #eef1f4;
+  --accent2: #4a90d9; --accent2-soft: #eaf2fb;
+  --tag-bg: rgba(78,144,217,0.15); --tag-bd: rgba(78,144,217,0.3); --tag-fg: #4a90d9;
+}
+
+/* ===== 字体族 ===== */
+.page[data-font="song"]  { font-family: "Songti SC", "SimSun", "Noto Serif SC", serif; }
+.page[data-font="hei"]   { font-family: "PingFang SC", "Microsoft YaHei", "Heiti SC", sans-serif; }
+.page[data-font="mono"]  { font-family: "SFMono-Regular", "Menlo", "Consolas", monospace; }
+
+/* ===== 密度 ===== */
+.page.dense { --fs: 13px; --lh: 1.5; }
+.page.dense .content { padding: 20px 36px 28px; }
+.page.dense .section { margin-bottom: 18px; }
+.page.dense .header { padding: 24px 36px 22px; }
+
+/* ===== 模板：现代居中 ===== */
+.page[data-template="modern"] .header { text-align: center; }
+.page[data-template="modern"] .header-info { justify-content: center; }
+.page[data-template="modern"] .header-tags { justify-content: center; }
+.page[data-template="modern"] .section-title {
+  border-left: none; text-align: center; padding-left: 0;
+  border-bottom: 2px solid var(--accent); display: inline-block; margin-bottom: 14px;
+}
+.page[data-template="modern"] .section-head { text-align: center; position: relative; }
+.page[data-template="modern"] .section-ctrls { position: absolute; right: 8px; top: 0; }
+
+/* ===== 分页参考线 ===== */
+.page-guide { display: block; position: absolute; left: 0; top: 0; right: 0; bottom: 0; pointer-events: none; z-index: 5; }
+.page-guide .pg-line { position: absolute; left: 0; right: 0; border-top: 1.5px dashed #ff6b6b; }
+.page-guide .pg-label { position: absolute; right: 6px; top: 1px; background: #ff6b6b; color: #fff; font-size: 10px; line-height: 16px; padding: 0 6px; border-radius: 8px; }
+
+/* ===== 头部 ===== */
+.header { background: var(--hdr-bg); color: #fff; padding: 32px 40px 28px; }
+.header h1 { font-size: 30px; font-weight: 700; letter-spacing: 2px; margin-bottom: 10px; }
+.header-info { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 13px; color: var(--hdr-sub); }
+.header-info a { color: var(--link); text-decoration: none; }
+.header-tags { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 8px; }
+.tag { background: var(--tag-bg); border: 1px solid var(--tag-bd); color: var(--tag-fg); padding: 2px 12px; border-radius: 20px; font-size: 12px; }
+
+/* ===== 内容区 ===== */
+.content { padding: 28px 40px 36px; }
+.section { margin-bottom: 26px; position: relative; }
+.section:last-child { margin-bottom: 0; }
+.section-head { display: flex; justify-content: space-between; align-items: center; }
+.section-title { font-size: 16px; font-weight: 700; color: var(--ink); border-left: 4px solid var(--accent); padding-left: 12px; margin-bottom: 14px; }
+.summary-text { font-size: var(--fs); color: #333; line-height: 1.85; text-align: justify; }
+
+/* ===== 专业技能 ===== */
+.skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 24px; font-size: 13.5px; }
+.skill-item { display: flex; align-items: baseline; gap: 8px; }
+.skill-cat { color: var(--accent); font-weight: 600; min-width: 70px; flex-shrink: 0; }
+.skill-cat.new { color: var(--accent2); }
+.skill-desc { color: var(--muted); }
+
+/* ===== 工作经历 ===== */
+.work-item { margin-bottom: 16px; }
+.work-item:last-child { margin-bottom: 0; }
+.work-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
+.work-company { font-size: 15px; font-weight: 600; color: var(--ink); }
+.work-period { font-size: 13px; color: #888; }
+.work-role { font-size: 13px; color: var(--accent); margin-bottom: 4px; font-weight: 500; }
+.work-desc { font-size: 13.5px; color: var(--muted); }
+
+/* ===== 项目经历 ===== */
+.project { margin-bottom: 22px; position: relative; }
+.project:last-child { margin-bottom: 0; }
+.project-name { font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+.project-desc { font-size: 13.5px; color: var(--muted); margin-bottom: 6px; }
+.project-tech { font-size: 12.5px; color: var(--accent); margin-bottom: 8px; background: var(--accent-soft); padding: 3px 10px; border-radius: 4px; display: inline-block; }
+.project-points { list-style: none; }
+.project-points li { font-size: 13.5px; color: #333; padding: 2px 0 2px 16px; position: relative; line-height: 1.75; }
+.project-points li::before { content: "▸"; color: var(--accent); position: absolute; left: 0; top: 0; }
+.project.new { border-left: 3px solid var(--accent2); padding-left: 14px; margin-left: -14px; background: linear-gradient(90deg, var(--accent2-soft), transparent 60%); padding-top: 4px; padding-bottom: 4px; }
+.project.new .project-points li::before { color: var(--accent2); }
+.project.new .project-tech { color: var(--accent2); background: var(--accent2-soft); }
+
+/* ===== 隐藏模块占位 ===== */
+.section.is-hidden > *:not(.section-head) { display: none; }
+.section.is-hidden .section-head { opacity: .55; }
+.section.is-hidden .section-title::after { content: "（已隐藏）"; color: #999; font-size: 12px; font-weight: 400; margin-left: 8px; }
+
+/* ===== 打印样式 ===== */
+@media print {
+  body.resume-view { background: #fff; }
+  .toolbar, .side-panel, .editor-only, .page-guide, .section-ctrls, .dnd-handle, .eye-btn, .del-btn, .add-btn { display: none !important; }
+  .page { box-shadow: none; margin: 0; max-width: none; border-radius: 0; font-size: var(--fs); }
+  .ed { outline: none !important; background: transparent !important; }
+  .section.is-hidden { display: none !important; }
+  .project.new { background: none; }
+}
