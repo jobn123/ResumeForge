@@ -1,7 +1,7 @@
 /* storage.js —— 自动保存（localStorage）与 JSON 数据导入导出 */
 window.RE = window.RE || {};
 RE.storage = (function () {
-  const KEY = 'resumeforge:v2';
+  const KEY = window.RE_STORAGE_KEY || 'resumeforge:v2';
 
   function persist(root, settings) {
     try {

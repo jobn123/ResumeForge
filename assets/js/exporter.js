@@ -36,7 +36,9 @@ RE.exporter = (function () {
 
   function fileName(ext) {
     const map = { pdf: 'pdf', png: 'png', html: 'html', doc: 'doc' };
-    return '林墨-前端工程师简历.' + map[ext];
+    const h1 = root().querySelector('h1');
+    const name = (h1 && h1.textContent || '简历').trim();
+    return name + '-前端工程师简历.' + map[ext];
   }
 
   function download(blob, name) {
@@ -82,7 +84,9 @@ RE.exporter = (function () {
   function exportHtml() {
     const clone = buildCleanClone();
     resetClone(clone);
-    const doc = '<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>林墨-前端工程师简历</title><link rel="stylesheet" href="assets/css/base.css"></head><body class="resume-view">' + clone.outerHTML + '</body></html>';
+    const h1 = root().querySelector('h1');
+    const title = (h1 && h1.textContent || '简历') + '-前端工程师简历';
+    const doc = '<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>' + title + '</title><link rel="stylesheet" href="assets/css/base.css"></head><body class="resume-view">' + clone.outerHTML + '</body></html>';
     document.body.removeChild(clone);
     download(new Blob([doc], { type: 'text/html;charset=utf-8' }), fileName('html'));
   }
